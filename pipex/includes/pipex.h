@@ -6,7 +6,7 @@
 /*   By: cparras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 12:56:34 by romaurel          #+#    #+#             */
-/*   Updated: 2023/05/27 02:11:46 by cparras          ###   ########.fr       */
+/*   Updated: 2023/05/30 01:05:39 by cparras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 char	*check_path(char *cmd, char **ev);
 void	exectute_cmd(char *av, char **ev);
 void	child(char *av, char **ev);
-void	parent(char **av, char **ev, int *fd);
+void	here_doc(char *av, int ac);
+void	here_doc_loop(char *av, int *fd);
 
 #endif

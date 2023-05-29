@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cparras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 21:09:26 by cparras           #+#    #+#             */
-/*   Updated: 2023/05/02 17:10:41 by cparras          ###   ########.fr       */
+/*   Created: 2023/05/29 17:49:52 by cparras           #+#    #+#             */
+/*   Updated: 2023/05/30 01:04:05 by cparras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ void	ft_lstdelone(t_list *lst)
 {
 	if (!lst)
 		return ;
-	//free(lst->content);
 	free(lst);
 }

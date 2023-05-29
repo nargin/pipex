@@ -6,7 +6,7 @@
 /*   By: cparras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 01:26:28 by cparras           #+#    #+#             */
-/*   Updated: 2023/05/27 12:21:12 by cparras          ###   ########.fr       */
+/*   Updated: 2023/05/30 01:39:35 by cparras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ char	*check_path(char *cmd, char **ev)
 		no_ex = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(no_ex, cmd);
 		free(no_ex);
-		if (!access(path, F_OK))
+		if (access(path, F_OK) == 0)
 			return (path);
 		free(path);
 	}
-	free_array(paths);
-		printerr("Error\n", 1);
-	return (0);
+	return (NULL);
 }
 
 void	exectute_cmd(char *av, char **ev)
@@ -48,6 +46,9 @@ void	exectute_cmd(char *av, char **ev)
 	cmd = ft_split(av, ' ');
 	path = check_path(cmd[0], ev);
 	if (!path)
+	{
 		free_array(cmd);
+		exit(2);
+	}
 	execve(path, cmd, ev);
 }
