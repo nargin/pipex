@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cparras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: romaurel <romaurel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 12:56:34 by romaurel          #+#    #+#             */
-/*   Updated: 2023/05/30 01:05:39 by cparras          ###   ########.fr       */
+/*   Updated: 2023/05/30 16:53:10 by romaurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <sys/types.h>
 # include <stdio.h>
 # include "./libft/libft.h"
+
+# define ERROR_HERE_DOC "Error\nPlease use as follow\n\
+./pipex here_doc \"limiter\" \"cmd\" \"cmd1\" file"
+
+# define ERROR_PIPEX "Error\nPlease use as follow\n\
+./pipex file1 \"cmd1\" ... \"cmdn\" file2"
 
 char	*check_path(char *cmd, char **ev);
 void	exectute_cmd(char *av, char **ev);

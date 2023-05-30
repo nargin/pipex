@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cparras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: romaurel <romaurel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 01:26:28 by cparras           #+#    #+#             */
-/*   Updated: 2023/05/30 01:39:35 by cparras          ###   ########.fr       */
+/*   Updated: 2023/05/30 16:51:36 by romaurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+void	err_cmd(char *str, char *cmd, char *end)
+{
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(end, 2);
+}
 
 char	*check_path(char *cmd, char **ev)
 {
@@ -33,6 +40,7 @@ char	*check_path(char *cmd, char **ev)
 			return (path);
 		free(path);
 	}
+	err_cmd("pipex: ", cmd, ": command not found\n");
 	return (NULL);
 }
 

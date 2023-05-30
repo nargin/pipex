@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cparras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: romaurel <romaurel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 00:27:28 by cparras           #+#    #+#             */
-/*   Updated: 2023/05/30 01:39:32 by cparras          ###   ########.fr       */
+/*   Updated: 2023/05/30 16:51:35 by romaurel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	here_doc(char *av, int ac)
 	int		fd[2];
 	char	*line;
 
-	if (ac != 6)
-		printerr("Error\nPlease use as follow\n./pipex here_doc \"limiter\" \"cmd\" \"cmd1\" file", 1);
+	if (ac < 6)
+		printerr(ERROR_HERE_DOC, 1);
 	if (pipe(fd) == -1)
 		printerr("Error", 1);
 	pid = fork();
@@ -77,32 +77,28 @@ void	here_doc(char *av, int ac)
 int	main(int ac, char **av, char **env)
 {
 	int	i;
-	int	fd1;
-	int	fd2;
+	int	fd[2];
 
 	if (ac < 5)
-		printerr("Error\nPlease use as follow\n./pipex file1 \"cmd1\" ... \"cmdn\" file2", 1);
+		printerr(ERROR_PIPEX, 1);
+	fd[1] = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (fd[1] == -1)
+		printerr("Error", 1);
 	if (!ft_strncmp(av[1], "here_doc", 8))
 	{
 		i = 3;
-		fd2 = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-		if (fd2 == -1)
-			printerr("Error", 1);
 		here_doc(ft_strjoin(av[2], "\n"), ac);
 	}
 	else
 	{
 		i = 2;
-		fd1 = open(av[1], O_RDONLY, 664);
-		if (fd1 == -1)
+		fd[0] = open(av[1], O_RDONLY, 664);
+		if (fd[0] == -1)
 			printerr("Error", 1);
-		fd2 = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-		if (fd2 == -1)
-			printerr("Error", 1);
-		dup2(fd1, STDIN_FILENO);
+		dup2(fd[0], STDIN_FILENO);
 	}
 	while (i < ac - 2)
 		child(av[i++], env);
-	dup2(fd2, STDOUT_FILENO);
+	dup2(fd[1], STDOUT_FILENO);
 	exectute_cmd(av[ac - 2], env);
 }
